@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: collector-service-config
+  namespace: gemz
+  labels:
+    app: gemz
+    app-part: collector
+    config: gemz-collector-api
+data:
+  BlobStorage__BlobUri: REDACTED
+  BlobStorage__ContainerName: REDACTED
+  BlobStorage__Key: REDACTED
+  BlobStorage__StorageAccount: REDACTED
+  DatabaseConfig__Connection: REDACTED
+  DatabaseConfig__Database: REDACTED
+  ValidateEndpoint: REDACTED
+  Stripe__ApiKey: REDACTED
+  GemzDefaults__PackSize: REDACTED
+  ServiceBus__ConnectionString: REDACTED
+  ServiceBus__StripeHandlerQueueName: REDACTED
+  ServiceBus__NotifyOrderQueueName: REDACTED
+  ServiceBus__ListenToStripeCollectorQueue: REDACTED

@@ -1,0 +1,57 @@
+# Deployment document
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gemz-creator-deployment
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-creator-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gemz
+      deployment: gemz-creator-api
+  template:
+    metadata:
+      labels:
+        app: gemz
+        deployment: gemz-creator-api
+    spec:
+      containers:
+        - name: creator-api
+          image: gemzdev.azurecr.io/creator-service:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: creator-service-config
+          resources:
+            limits:
+              cpu: 400m
+              memory: 6Gi
+            requests:
+              cpu: 100m
+              memory: 1Gi
+          imagePullPolicy: Always
+---
+# Service document
+apiVersion: v1
+kind: Service
+metadata:
+  name: gemz-creator-service
+  namespace: gemz
+  labels:
+    app: gemz
+    service: gemz-creator-api
+spec:
+  selector:
+    deployment: gemz-creator-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+# No Ingress here as ingress is handled by api.ingress.yaml for all services other than Auth

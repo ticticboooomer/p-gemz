@@ -1,0 +1,16 @@
+# Config is deployed separately so only needs deploy if config has changed  
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webhook-service-config
+  namespace: gemz
+  labels:
+    app: gemz
+    app-part: creator
+    config: gemz-creator-api
+data:
+  ServiceBus__ConnectionString: REDACTED
+  ServiceBus__StripeHandlerCreatorQueueName: REDACTED
+  ServiceBus__StripeHandlerCollectorQueueName: REDACTED
+  Stripe__ApiKey: REDACTED
+  Stripe__WebHookEndpointSecret: REDACTED

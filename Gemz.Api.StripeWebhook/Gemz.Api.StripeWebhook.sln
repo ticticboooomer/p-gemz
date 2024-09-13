@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemz.Api.StripeWebhook", "Gemz.Api.StripeWebhook\Gemz.Api.StripeWebhook.csproj", "{5FF72241-A919-4E31-81E5-81E1ECAB06F9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C28CE3C1-CD4B-4DD4-9E69-D24396CC5642} = {C28CE3C1-CD4B-4DD4-9E69-D24396CC5642}
+		{EAEC0CB1-3D03-4AB3-9133-D0A61D2B6EFE} = {EAEC0CB1-3D03-4AB3-9133-D0A61D2B6EFE}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemz.Api.StripeWebhook.Service", "Gemz.Api.StripeWebhook.Service\Gemz.Api.StripeWebhook.Service.csproj", "{EAEC0CB1-3D03-4AB3-9133-D0A61D2B6EFE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C28CE3C1-CD4B-4DD4-9E69-D24396CC5642} = {C28CE3C1-CD4B-4DD4-9E69-D24396CC5642}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemz.ServiceBus", "Gemz.Api.StripeWebhook.ServiceBus\Gemz.ServiceBus.csproj", "{C28CE3C1-CD4B-4DD4-9E69-D24396CC5642}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FF72241-A919-4E31-81E5-81E1ECAB06F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF72241-A919-4E31-81E5-81E1ECAB06F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF72241-A919-4E31-81E5-81E1ECAB06F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF72241-A919-4E31-81E5-81E1ECAB06F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAEC0CB1-3D03-4AB3-9133-D0A61D2B6EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAEC0CB1-3D03-4AB3-9133-D0A61D2B6EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAEC0CB1-3D03-4AB3-9133-D0A61D2B6EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAEC0CB1-3D03-4AB3-9133-D0A61D2B6EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28CE3C1-CD4B-4DD4-9E69-D24396CC5642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28CE3C1-CD4B-4DD4-9E69-D24396CC5642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28CE3C1-CD4B-4DD4-9E69-D24396CC5642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28CE3C1-CD4B-4DD4-9E69-D24396CC5642}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D69F46B1-6662-436C-9274-B04B3116EF89}
+	EndGlobalSection
+EndGlobal

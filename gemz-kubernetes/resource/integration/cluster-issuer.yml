@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: root-secret
+  namespace: cert-manager
+data:
+  tls.crt: REDACTED
+  tls.key: REDACTED
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+  namespace: cert-manager
+spec:
+  selfSigned: {}
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-selfsigned-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: gemzdev-ss-root
+  secretName: root-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  dnsNames:
+    - "devcluster.local"
+    - "gemzdev.com"
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: gemzdev-issuer
+  namespace: cert-manager
+spec:
+  ca:
+    secretName: root-secret

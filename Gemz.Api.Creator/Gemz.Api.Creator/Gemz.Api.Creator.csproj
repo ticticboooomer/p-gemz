@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.1.3" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.3" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.30.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Gemz.Api.Creator.Data\Gemz.Api.Creator.Data.csproj" />
+      <ProjectReference Include="..\Gemz.Api.Creator.ServiceBus\Gemz.ServiceBus.csproj" />
+      <ProjectReference Include="..\Gemz.Api.Creator.Service\Gemz.Api.Creator.Service.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+﻿# Add new APIs into here
+services:
+  auth:
+    image: gemzdev.azurecr.io/auth-service:latest
+    build:
+      context: ../gemz-api-account/
+      dockerfile: ../gemz-kubernetes/docker/auth.Dockerfile
+  creator_api:
+    image: gemzdev.azurecr.io/creator-service:latest
+    build:
+      context: ../gemz-api-creator
+      dockerfile:  ../gemz-kubernetes/docker/creator-api.Dockerfile
+  collector_api:
+    image: gemzdev.azurecr.io/collector-service:latest
+    build:
+      context: ../gemz-api-collector
+      dockerfile:  ../gemz-kubernetes/docker/collector-api.Dockerfile
+  webhook_api:
+    image: gemzdev.azurecr.io/stripe-webhook-service:latest
+    build:
+      context: ../gemz-api-stripe-webhook
+      dockerfile:  ../gemz-kubernetes/docker/webhook-api.Dockerfile

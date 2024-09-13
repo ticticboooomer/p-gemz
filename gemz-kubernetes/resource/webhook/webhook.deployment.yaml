@@ -1,0 +1,77 @@
+# Deployment document
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gemz-webhook-deployment
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-webhook-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gemz
+      deployment: gemz-webhook-api
+  template:
+    metadata:
+      labels:
+        app: gemz
+        deployment: gemz-webhook-api
+    spec:
+      containers:
+        - name: webhook-api
+          image: gemzdev.azurecr.io/stripe-webhook-service:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 400m
+              memory: 6Gi
+            requests:
+              cpu: 100m
+              memory: 1Gi
+          envFrom:
+            - configMapRef:
+                name: webhook-service-config
+---
+# Service document
+apiVersion: v1
+kind: Service
+metadata:
+  name: gemz-webhook-service
+  namespace: gemz
+  labels: 
+    app: gemz
+    service: gemz-webhook-api
+spec:
+  selector:
+    deployment: gemz-webhook-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+# webhook has its own Ingress because its a different domain
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gemz-webhook-ingress
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-webhook-api
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: webhook.gemz.gg
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gemz-webhook-service
+                port:
+                  number: 80

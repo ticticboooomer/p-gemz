@@ -1,0 +1,57 @@
+# Deployment document
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gemz-collector-deployment
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-collector-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gemz
+      deployment: gemz-collector-api
+  template:
+    metadata:
+      labels:
+        app: gemz
+        deployment: gemz-collector-api
+    spec:
+      containers:
+        - name: collector-api
+          image: gemzdev.azurecr.io/collector-service:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 400m
+              memory: 6Gi
+            requests:
+              cpu: 100m
+              memory: 1Gi
+          envFrom:
+            - configMapRef:
+                name: collector-service-config
+          imagePullPolicy: Always
+---
+# Service document
+apiVersion: v1
+kind: Service
+metadata:
+  name: gemz-collector-service
+  namespace: gemz
+  labels:
+    app: gemz
+    service: gemz-collector-api
+spec:
+  selector:
+    deployment: gemz-collector-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      
+# No Ingress here as ingress is handled by api.ingress.yaml for all services other than Auth

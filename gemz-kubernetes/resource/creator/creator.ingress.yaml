@@ -1,0 +1,27 @@
+# This ingress is for everything apart from Auth
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gemz-creator-ingress
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-api
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    nginx.ingress.kubernetes.io/websocket-services: gemz-creator-service
+    nginx.org/websocket-services: gemz-creator-service
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.gemz.gg
+      http:
+        paths:
+          - path: /creator(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: gemz-creator-service
+                port:
+                  number: 80

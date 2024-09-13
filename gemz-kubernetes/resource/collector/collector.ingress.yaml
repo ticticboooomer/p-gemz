@@ -1,0 +1,25 @@
+# This ingress is for everything apart from Auth
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gemz-collector-ingress
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-api
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.gemz.gg
+      http:
+        paths:
+          - path: /collector(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: gemz-collector-service
+                port:
+                  number: 80

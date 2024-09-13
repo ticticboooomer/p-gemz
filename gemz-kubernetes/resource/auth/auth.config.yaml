@@ -1,0 +1,27 @@
+# Config is deployed separately so only needs deploy if config has changed   
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-service-config
+  namespace: gemz
+  labels:
+    app: gemz
+    app-part: auth
+    config: gemz-auth-api
+data:
+  ValidateEndpoint: REDACTED
+  Auth__Jwt__Audience: REDACTED
+  Auth__Jwt__DaysUntilExpiry: REDACTED
+  Auth__Jwt__Issuer: REDACTED
+  Auth__Jwt__Key: REDACTED
+  Auth__Twitch__ClientID: REDACTED
+  Auth__Twitch__ClientSecret: REDACTED
+  Auth__Twitch__DefaultErrorUrl: REDACTED
+  Auth__Twitch__RedirectUrl: REDACTED
+  Auth__Twitch__Scope: REDACTED
+  Auth__Twitch__TokenEndpoint: REDACTED
+  Auth__Twitch__TokenValidateEndpoint: REDACTED
+  Auth__Twitch__UrlStart: REDACTED
+  Auth__Twitch__UserInfoEndpoint: REDACTED
+  DatabaseConfig__Connection: REDACTED
+  DatabaseConfig__Database: REDACTED

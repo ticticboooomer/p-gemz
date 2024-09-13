@@ -1,0 +1,70 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: queue-cluster
+  labels:
+    app: gemz
+spec:
+  replicas: 3
+  image: rabbitmq:3.12.12
+  service:
+    type: ClusterIP
+  resources:
+    requests:
+      cpu: 256m
+      memory: 1Gi
+    limits:
+      cpu: 256m
+      memory: 1Gi
+  rabbitmq:
+    additionalPlugins:
+      - rabbitmq_management
+      - rabbitmq_peer_discovery_k8s
+    additionalConfig: |
+      cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+      cluster_formation.k8s.host = kubernetes.default.svc.cluster.local
+      cluster_formation.k8s.address_type = hostname
+      vm_memory_high_watermark_paging_ratio = 0.85
+      cluster_formation.node_cleanup.interval = 10
+      cluster_partition_handling = autoheal
+      queue_master_locator = min-masters
+      loopback_users.guest = false
+      default_user = guest
+      default_pass = guest
+    advancedConfig: ""
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: gemz-notify-order
+  namespace: gemz-queue
+spec:
+  name: gemz-notify-order
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: queue-cluster
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: gemz-stripe-handler-collector
+  namespace: gemz-queue
+spec:
+  name: gemz-stripe-handler-collector
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: queue-cluster
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: gemz-stripe-handler-creator
+  namespace: gemz-queue
+spec:
+  name: gemz-stripe-handler-creator
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: queue-cluster

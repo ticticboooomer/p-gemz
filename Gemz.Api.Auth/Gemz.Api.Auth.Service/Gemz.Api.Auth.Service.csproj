@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Gemz.Api.Auth.Data\Gemz.Api.Auth.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.28.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.28.1" />
+    </ItemGroup>
+
+</Project>

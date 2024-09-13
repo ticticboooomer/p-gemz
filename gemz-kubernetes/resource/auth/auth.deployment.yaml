@@ -1,0 +1,77 @@
+# Deployment document
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gemz-auth-deployment
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-auth-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gemz
+      deployment: gemz-auth-api
+  template:
+    metadata:
+      labels:
+        app: gemz
+        deployment: gemz-auth-api
+    spec:
+      containers:
+        - name: auth-api
+          image: gemzdev.azurecr.io/auth-service:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 400m
+              memory: 6Gi
+            requests:
+              cpu: 100m
+              memory: 1Gi
+          envFrom:
+            - configMapRef:
+                name: auth-service-config
+---
+# Service document
+apiVersion: v1
+kind: Service
+metadata:
+  name: gemz-auth-service
+  namespace: gemz
+  labels: 
+    app: gemz
+    service: gemz-auth-api
+spec:
+  selector:
+    deployment: gemz-auth-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+# Auth has its own Ingress because its a different domain
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gemz-auth-ingress
+  namespace: gemz
+  labels:
+    app: gemz
+    deployment: gemz-auth-api
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: auth.gemz.gg
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gemz-auth-service
+                port:
+                  number: 80

@@ -1,0 +1,28 @@
+# Config is deployed separately so only needs deploy if config has changed  
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: creator-service-config
+  namespace: gemz
+  labels:
+    app: gemz
+    app-part: creator
+    config: gemz-creator-api
+data:
+  BlobStorage__BlobUri: REDACTED
+  BlobStorage__ContainerName: REDACTED
+  BlobStorage__Key: REDACTED
+  BlobStorage__StorageAccount: REDACTED
+  DatabaseConfig__Connection: REDACTED
+  DatabaseConfig__Database: REDACTED
+  ValidateEndpoint: REDACTED
+  ServiceBus__ConnectionString: REDACTED
+  ServiceBus__StripeHandlerCreatorQueueName: REDACTED
+  ServiceBus__NotifyOrderQueueName: REDACTED
+  ServiceBus__ListenToNotifyOrderQueue: REDACTED
+  ServiceBus__ListenToStripeCreatorQueue: REDACTED
+  Stripe__ApiKey: REDACTED
+  Stripe__RefreshUrl: REDACTED
+  Stripe__ReturnUrl: REDACTED
+  WebSocket__AllowedOrigin: REDACTED
+  GemzDefaults__DefaultCommissionPercentage: REDACTED
